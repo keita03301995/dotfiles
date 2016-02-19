@@ -1,0 +1,11 @@
+[user]
+	name = keita03301995
+	email = keita03301995@gmail.com
+[keita03301995]
+	email = keita03301995@gmail.com
+[push]
+	default = matching
+[alias]
+	co = checkout
+	cm = commit
+	st = status
