@@ -11,3 +11,9 @@
 
 .zshrc
 ```
+
+#### 新環境にcloneしたら
+
+```chmod +x dotfilesInstaller.sh```
+
+```./dotfilesInstaller.sh```
