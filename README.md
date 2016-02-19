@@ -16,6 +16,7 @@
 
 ```
 git clone https://github.com/keita03301995/dotfiles.git dotfiles
+cd ~/dotfiles
 chmod +x dotfilesInstaller.sh
 ./dotfilesInstaller.sh
 ```
