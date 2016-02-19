@@ -12,9 +12,10 @@
 .zshrc
 ```
 
-#### 新環境にcloneしたら
+#### 新環境に入れたい場合
 
 ```
-$ chmod +x dotfilesInstaller.sh
-$ ./dotfilesInstaller.sh
+git clone https://github.com/keita03301995/dotfiles.git dotfiles
+chmod +x dotfilesInstaller.sh
+./dotfilesInstaller.sh
 ```
