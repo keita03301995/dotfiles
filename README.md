@@ -14,6 +14,7 @@
 
 #### 新環境にcloneしたら
 
-```chmod +x dotfilesInstaller.sh```
-
-```./dotfilesInstaller.sh```
+```
+$ chmod +x dotfilesInstaller.sh
+$ ./dotfilesInstaller.sh
+```
