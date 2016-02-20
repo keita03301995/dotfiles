@@ -59,10 +59,12 @@ zstyle ':vcs_info:*' actionformats '%F{red}(%s)-[%b|%a]%f'
 function _update_vcs_info_msg() {
   LANG=en_US.UTF-8 vcs_info
 
-  PROMPT="%{${fg[cyan]}%}$ %~%{${reset_color}%} 
-%{${fg[magenta]}%}[%n]$ %{${reset_color}%}"
+  RPROMPT="%{${bg[blue]}%}%*%{${reset_color}%}"
 
-  RPROMPT="${vcs_info_msg_0_}"
+  PROMPT="
+${vcs_info_msg_0_}
+%{${fg[cyan]}%}$ %~%{${reset_color}%} 
+%(?.%{${fg[magenta]}%}.%{${fg[blue]}%})%(?![%n]$ ![%n]$ )%{${reset_color}%}"
 
 	PROMPT2="${fg[magenta]}[%n]> ${reset_color}"
 
