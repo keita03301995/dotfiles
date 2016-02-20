@@ -1,79 +1,74 @@
 # 少し凝った zshrc
-# # License : MIT
-# # http://mollifier.mit-license.org/
-#
-# ########################################
-# # 環境変数
+# License : MIT
+# http://mollifier.mit-license.org/
+
+########################################
+# 環境変数
 export LANG=ja_JP.UTF-8
-#
-#
-# # 色を使用出来るようにする
+
+# 色を使用出来るようにする
 autoload -Uz colors
 colors
-#
-# # zwdエディタを使用
+
+# zwdエディタを使用
 autoload zed
-#
-#
-# # ヒストリの設定
+
+# ヒストリの設定
 HISTFILE=~/.zsh_history
 HISTSIZE=1000000
 SAVEHIST=1000000
-#
-# # プロンプト
-# # 1行表示
-# PROMPT="%~ %# "
-# # 2行表示
-#
-# # 単語の区切り文字を指定する
+
+# 単語の区切り文字を指定する
 autoload -Uz select-word-style
 select-word-style default
-# # ここで指定した文字は単語区切りとみなされる
-# # / も区切りと扱うので、^W でディレクトリ１つ分を削除できる
+
+# ここで指定した文字は単語区切りとみなされる
+# / も区切りと扱うので、^W でディレクトリ１つ分を削除できる
 zstyle ':zle:*' word-chars " /=;@:{},|"
 zstyle ':zle:*' word-style unspecified
-#
-# ########################################
-# # 補完
-# # 補完機能を有効にする
+
+########################################
+# 補完
+# 補完機能を有効にする
 autoload -Uz compinit
 compinit
-#
-# # 補完で小文字でも大文字にマッチさせる
+
+# 補完で小文字でも大文字にマッチさせる
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
-#
-# # ../ の後は今いるディレクトリを補完しない
+
+# ../ の後は今いるディレクトリを補完しない
 zstyle ':completion:*' ignore-parents parent pwd ..
-#
-# # sudo の後ろでコマンド名を補完する
+
+# sudo の後ろでコマンド名を補完する
 zstyle ':completion:*:sudo:*' command-path /usr/local/sbin /usr/local/bin \
                    /usr/sbin /usr/bin /sbin /bin /usr/X11R6/bin
-#
-#  # ps コマンドのプロセス名補完
+
+# ps コマンドのプロセス名補完
 zstyle ':completion:*:processes' command 'ps x -o pid,s,args'
-#
-#
+
+
 ########################################
 # vcs_info
 autoload -Uz vcs_info
 autoload -Uz add-zsh-hook
+
 # ブランチの表示
 zstyle ':vcs_info:*' formats '%F{green}(%s)-[%b]%f'
 zstyle ':vcs_info:*' actionformats '%F{red}(%s)-[%b|%a]%f'
 # プロンプトの設定
 function _update_vcs_info_msg() {
-    LANG=en_US.UTF-8 vcs_info
-    PROMPT="
-${vcs_info_msg_0_}
-%{${fg[cyan]}%}%~%{${reset_color}%} 
+  LANG=en_US.UTF-8 vcs_info
+
+  PROMPT="%{${fg[cyan]}%}$ %~%{${reset_color}%} 
 %{${fg[magenta]}%}[%n]$ %{${reset_color}%}"
+
+  RPROMPT="${vcs_info_msg_0_}"
 
 	PROMPT2="${fg[magenta]}[%n]> ${reset_color}"
 
 }
 add-zsh-hook precmd _update_vcs_info_msg
-#
-#
+
 ########################################
 # オプション
 # 日本語ファイル名を表示可能にする
