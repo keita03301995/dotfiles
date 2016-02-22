@@ -59,7 +59,7 @@ zstyle ':vcs_info:*' actionformats '%F{red}(%s)-[%b|%a]%f'
 function _update_vcs_info_msg() {
   LANG=en_US.UTF-8 vcs_info
 
-  RPROMPT="%{${bg[blue]}%}%*%{${reset_color}%}"
+  RPROMPT="%{$(echotc UP 2)${bg[blue]}%}%*%{$(echotc DO 2)${reset_color}%}"
 
   PROMPT="
 ${vcs_info_msg_0_}
