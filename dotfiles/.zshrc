@@ -144,6 +144,7 @@ alias mv='mv -i'
 alias mkdir='mkdir -p'
 
 alias historyall="history 1"
+
 # sudo の後のコマンドでエイリアスを有効にする
 alias sudo='sudo '
 
