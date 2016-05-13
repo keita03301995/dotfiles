@@ -3,7 +3,7 @@
 # Load vital library that is most important and
 # constructed with many minimal functions
 # For more information, see etc/README.md
-. "$DOTPATH"/Users/keita/dotfiles/dotfiles/etc/lib/vital.sh
+. "$DOTPATH"/Users/keita/dotfiles/etc/lib/vital.sh
 
 # If the current_bat is less than the BATTERY_DANGER,
 # output color will be red

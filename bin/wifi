@@ -15,7 +15,7 @@
 #
 # ▁▂▃▅▇
 
-. "$DOTPATH"/Users/keita/dotfiles/dotfiles/etc/lib/vital.sh
+. "$DOTPATH"/Users/keita/dotfiles/etc/lib/vital.sh
 
 if ! is_osx; then
   echo "wifi: require OS X" 1>&2
