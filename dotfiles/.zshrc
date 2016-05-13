@@ -5,7 +5,7 @@
 ########################################
 # 環境変数
 export LANG=ja_JP.UTF-8
-
+export HOMEBREW_CASK_OPTS="--appdir=/Applications"
 # 色を使用出来るようにする
 autoload -Uz colors
 colors
@@ -145,8 +145,14 @@ alias mkdir='mkdir -p'
 
 alias historyall="history 1"
 
+alias vi='vim'
+
 # sudo の後のコマンドでエイリアスを有効にする
 alias sudo='sudo '
+
+# キーバインドの切り替え
+alias tmux-changekey='tmux set-option -ag prefix C-b'
+alias tmux-revertkey='tmux set-option -ag prefix C-a'
 
 # tmux起動時に自動で分割出来るように
 

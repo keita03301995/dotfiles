@@ -8,4 +8,7 @@
 [alias]
 	co = checkout
 	cm = commit
-	st = status
+  st = status
+  graph = log --graph --date-order -C -M --pretty=format:\"<%h> %ad [%an] %Cgreen%d%Creset %s\" --all --date=short
+[core]
+  editor = /usr/local/bin/vim

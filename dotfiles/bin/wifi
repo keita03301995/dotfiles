@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 #
 # @(#) wifi v0.2.0 2015-09-24
 #
@@ -15,24 +15,24 @@
 #
 # ▁▂▃▅▇
 
-. "$DOTPATH"../etc/lib/vital.sh
+. "$DOTPATH"/Users/keita/dotfiles/dotfiles/etc/lib/vital.sh
 
 if ! is_osx; then
-    echo "wifi: require OS X" 1>&2
-    exit 1
+  echo "wifi: require OS X" 1>&2
+  exit 1
 fi
 
 # Check arguments
 for arg in "$@"
 do
-    # Check if arguments have help option
-    if [[ "$arg" =~ ^"-h"|"--help"$ ]]; then
-        cat 1>&2 <<-'EOH'
+  # Check if arguments have help option
+  if [[ "$arg" =~ ^"-h"|"--help"$ ]]; then
+    cat 1>&2 <<-'EOH'
 usage: wifi [-h|--help]
-    show the wifi information (strength, bandwidth, SSID)
+  show the wifi information (strength, bandwidth, SSID)
 EOH
-        exit 1
-    fi
+    exit 1
+  fi
 done
 
 # airport command is executable file
@@ -56,8 +56,8 @@ airport_path="/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Cu
 
 # Check if airport is available
 if [[ ! -x $airport_path ]]; then
-    echo "$airport_path: not found" 1>&2
-    exit 1
+  echo "$airport_path: not found" 1>&2
+  exit 1
 fi
 
 # The Unicode Block Elements
@@ -86,8 +86,8 @@ signals=(▂ ▅ ▇)
 # Get the wifi information and then set it to an info array
 info=( $(eval "$airport_path" --getinfo | grep -E "^ *(agrCtlRSSI|state|lastTxRate|SSID):" | awk '{print $2}') )
 if [[ ${#info[@]} -eq 0 ]]; then
-    echo "offline"
-    exit 1
+  echo "offline"
+  exit 1
 fi
 
 # cut out a needed information from the info
@@ -97,33 +97,34 @@ stat="${info[1]}"   # whether wifi is available
 rate="${info[2]}"   # bandwidth of wifi wave
 ssid="${info[3]}"   # wifi ssid name
 
+signal=""
 # Determine the signal from rssi of wifi
 for ((j = 0; j < "${#signals[@]}"; j++))
 do
-    # reference of strength (rssi)
-    #  -20　Excellent
-    #  -30　Excellent
-    #  -40　Excellent
-    #  -50　Excellent
-    #  -60　better
-    #  -70　good
-    #  -80　not good
-    #  -90　bad
-    # -100　bad
-    if ((  $j == 0 && $rssi > -100 )) ||
-        (( $j == 1 && $rssi > -80  )) ||
-        (( $j == 2 && $rssi > -50  )); then
-        # make signal
-        signal="${signal}${signals[$j]} "
-    else
-        signal="${signal}  "
-    fi
+  # reference of strength (rssi)
+  #  -20　Excellent
+  #  -30　Excellent
+  #  -40　Excellent
+  #  -50　Excellent
+  #  -60　better
+  #  -70　good
+  #  -80　not good
+  #  -90　bad
+  # -100　bad
+  if ((  $j == 0 && $rssi > -100 )) ||
+    (( $j == 1 && $rssi > -80  )) ||
+    (( $j == 2 && $rssi > -50  )); then
+    # make signal
+    signal="${signal}${signals[$j]} "
+  else
+    signal="${signal}  "
+  fi
 done
 
 # If the wifi rate (wifi bandwidth) is unavailable,
 if [ "$rate" = 0 ]; then
-    echo "no_wifi"
-    exit 1
+  echo "no_wifi"
+  exit 1
 fi
 
 # Outputs wifi

@@ -1,9 +1,7 @@
 #! /bin/bash
-ln -s ~/dotfiles/.gitconfig ~/.gitconfig
-ln -s ~/dotfiles/.gitignore ~/.gitignore
-ln -s ~/dotfiles/.vim/ ~/.vim
-ln -s ~/dotfiles/.vimrc ~/.vimrc
-ln -s ~/dotfiles/.zsh/ ~/.zsh
-ln -s ~/dotfiles/.zshrc ~/.zshrc
-ln -s ~/dotfiles/.tmux.conf ~/.tmux.conf
-ln -s ~/dotfiles/etc ~/etc
+ln -s ~/dotfiles/dotfiles/.gitconfig ~/.gitconfig
+ln -s ~/dotfiles/dotfiles/.gitignore ~/.gitignore
+ln -s ~/dotfiles/dotfiles/.vimrc ~/.vimrc
+ln -s ~/dotfiles/dotfiles/.zshrc ~/.zshrc
+ln -s ~/dotfiles/dotfiles/.tmux.conf ~/.tmux.conf
+ln -s ~/dotfiles/dotfiles/etc ~/etc

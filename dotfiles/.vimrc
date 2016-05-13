@@ -1,10 +1,15 @@
+" Deleteキーの設定
+set backspace=indent,eol,start
+
+" 後々移動 scala
+au BufNewFile,BufRead *.scala setf scala
+
 set expandtab
 set tabstop=2
 set shiftwidth=2
 set softtabstop=2
-set autoindent
-set smartindent
-
+" set autoindent  プラグインを入れたためコメントアウト
+" set smartindent
 " ステータスラインの表示
 set laststatus=2
 " ステータスラインの表示
@@ -36,15 +41,15 @@ endif
 
 " 行番号の表示
 set number
-hi LineNr ctermfg=blue ctermbg=17
+"hi LineNr ctermfg=4 ctermbg=0
 
 " 横線の表示
 set cursorline
-hi CursorLine ctermbg=8 cterm=NONE
+"hi CursorLine ctermbg=8 cterm=NONE
 
 " 縦線の表示
-set cursorcolumn
-hi CursorColumn ctermbg=8
+"set cursorcolumn
+"hi CursorColumn ctermbg=8
 
 " コピペモード用のキーバインド
 set pastetoggle=<C-E>
@@ -68,14 +73,21 @@ set guicursor=a:blinkoff0
 set wildmenu
 
 " 自動的にコメントアウトされないように
+
+" シンタックスハイライトを有効に
+set term=xterm-256color 
+syntax on
+colorscheme molokai
+set t_Co=256
+
+" コメントの色を緑色に
+" hi Comment ctermfg=green
+
 augroup auto_comment_off
   autocmd!
   autocmd BufEnter * setlocal formatoptions-=r
   autocmd BufEnter * setlocal formatoptions-=o
 augroup END
-
-" コメントの色を緑色に
-hi Comment ctermfg=green
 
 " □とか○の文字があってもカーソル位置がずれないようにする
 if exists('&ambiwidth')
@@ -83,7 +95,7 @@ if exists('&ambiwidth')
 endif
 
 " クリップボードとの共有
-set guioptions+=a
+" set guioptions+=a
 
 " http://inari.hatenablog.com/entry/2014/05/05/231307
 """"""""""""""""""""""""""""""
@@ -144,10 +156,10 @@ if &compatible
 endif
 
 " Required:
-set runtimepath^=/home/keita/.vim/bundle/neobundle.vim/
+set runtimepath^=/Users/keita/.vim/bundle/neobundle.vim/
 
 " Required:
-call neobundle#begin(expand('/home/keita/.vim/bundle'))
+call neobundle#begin(expand('/Users/keita/.vim/bundle'))
 
 " Let NeoBundle manage NeoBundle
 " Required:
@@ -160,10 +172,22 @@ NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'ctrlpvim/ctrlp.vim'
 NeoBundle 'flazz/vim-colorschemes'
 NeoBundle 'scrooloose/nerdtree'
-
+" scala用syntax highlight
+NeoBundle 'derekwyatt/vim-scala'
 " You can specify revision/branch/tag.
 NeoBundle 'Shougo/vimshell', { 'rev' : '3787e5' }
-
+" java用プラグイン
+NeoBundle 'vim-scripts/javacomplete'
+" テキスト整形ツール(Align)
+NeoBundle 'Align'
+" インデント表示
+NeoBundle 'Yggdroot/indentLine'
+" 入力補完
+NeoBundle 'Shougo/neocomplcache'
+" 括弧とかの補完
+NeoBundle 'Townk/vim-autoclose'
+" vim-rails
+NeoBundle 'tpope/vim-rails'
 " Required:
 call neobundle#end()
 
@@ -180,3 +204,42 @@ nnoremap <silent><C-e> :NERDTreeToggle<CR>
 
 " 隠しファイルをデフォルトで表示させる
 let NERDTreeShowHidden = 1
+
+" クリップボードの共有
+set clipboard+=unnamed,autoselect
+autocmd FileType java :setlocal omnifunc=javacomplete#Complete
+autocmd FileType java :setlocal completefunc=javacomplete#CompleteParamsInfo
+
+" 入力補完の設定
+" Disable AutoComplPop.
+let g:acp_enableAtStartup = 0
+" Use neocomplcache.
+let g:neocomplcache_enable_at_startup = 1
+" Use smartcase.
+let g:neocomplcache_enable_smart_case = 1
+" Set minimum syntax keyword length.
+let g:neocomplcache_min_syntax_length = 3
+let g:neocomplcache_lock_buffer_name_pattern = '\*ku\*'
+
+" Define dictionary.
+let g:neocomplcache_dictionary_filetype_lists = {
+    \ 'default' : ''
+    \ }
+
+" Plugin key-mappings.
+inoremap <expr><C-g>     neocomplcache#undo_completion()
+inoremap <expr><C-l>     neocomplcache#complete_common_string()
+
+" Recommended key-mappings.
+" <CR>: close popup and save indent.
+inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+function! s:my_cr_function()
+    return neocomplcache#smart_close_popup() . "\<CR>"
+  endfunction
+  " <TAB>: completion.
+  inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+  " <C-h>, <BS>: close popup and delete backword char.
+  inoremap <expr><C-h> neocomplcache#smart_close_popup()."\<C-h>"
+  inoremap <expr><BS> neocomplcache#smart_close_popup()."\<C-h>"
+  inoremap <expr><C-y>  neocomplcache#close_popup()
+  inoremap <expr><C-s>  neocomplcache#cancel_popup()
